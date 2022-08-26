@@ -37,3 +37,25 @@ var employee_tracker = function () {
                 console.table(result);
                 employee_tracker();
             });
+        } else if (answers.prompt === 'Add A Department') {
+            inquirer.prompt([{
+                // Adding a Department
+                type: 'input',
+                name: 'department',
+                message: 'What is the name of the dpeartment?',
+                validate: departmentInput => {
+                    if (departmentInput) {
+                        return true;
+                    } else {
+                        console.log('Please Add A Department!');
+                        return false;
+                    }
+                }
+            }]).then((answers) => {
+                db.query(`INSERT INTO department (name) VALUES (?)`, [answers.department], (err, result) => {
+                    if (err) throw err;
+                    console.log(`Added ${answers.department} to the database.`)
+                    employee_tracker();
+                });
+            })
+        }
