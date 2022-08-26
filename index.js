@@ -23,4 +23,11 @@ var employee_tracker = function () {
                 console.table(result);
                 employee_tracker();
             });
-        } 
+        } else if (answers.prompt === 'View All Roles') {
+            db.query(`SELECT * FROM role`, (err, result) => {
+                if (err) throw err;
+                console.log("Viewing All Roles: ");
+                console.table(result);
+                employee_tracker();
+            });
+        }
